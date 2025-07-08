@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Sayang</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      transition: opacity 0.5s ease-in-out;
+    }
+    .btn-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      transition: all 0.7s ease-in-out;
+      z-index: 10;
+    }
+    .show {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .birthday-btn {
+      padding: 20px 40px;
+      font-size: 24px;
+      background: linear-gradient(145deg, #ff5edb, #ff84ef);
+      color: white;
+      text-decoration: none;
+      border: none;
+      border-radius: 50px;
+      box-shadow: 0 15px 30px rgba(255, 93, 219, 0.5);
+      cursor: pointer;
+      animation: bounce 1.5s infinite;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .birthday-btn i {
+      font-size: 28px;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    .click-area {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 5;
+      cursor: pointer;
+    }
+    #muteButton {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 30px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      z-index: 15;
+      display: none;
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 768px) {
+      .birthday-btn {
+        padding: 16px 28px;
+        font-size: 18px;
+        border-radius: 40px;
+      }
+      .birthday-btn i {
+        font-size: 22px;
+      }
+      #muteButton {
+        font-size: 26px;
+        top: 16px;
+        right: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .birthday-btn {
+        padding: 12px 24px;
+        font-size: 16px;
+        gap: 8px;
+      }
+      .birthday-btn i {
+        font-size: 20px;
+      }
+      #muteButton {
+        font-size: 24px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+  <video id="bgVideo" autoplay muted playsinline>
+    <source src="ucul.mp4" type="video/mp4" />
+    Browsermu nggak support video 😢
+  </video>
+
+  <div class="click-area" id="clickArea"></div>
+
+  <button id="muteButton">🔊</button>
+
+  <div id="btnWrapper" class="btn-container">
+    <a href="kado.html" class="birthday-btn">
+      <i class="fas fa-gift"></i> Buka Hadiah 🎁
+    </a>
+  </div>
+
+  <script>
+    const bgVideo = document.getElementById("bgVideo");
+    const clickArea = document.getElementById("clickArea");
+    const muteButton = document.getElementById("muteButton");
+    const btnWrapper = document.getElementById("btnWrapper");
+
+    clickArea.addEventListener("click", () => {
+      bgVideo.muted = false;
+      bgVideo.play();
+      clickArea.style.display = "none";
+      muteButton.style.display = "block";
+    });
+
+    muteButton.addEventListener("click", () => {
+      if (bgVideo.muted) {
+        bgVideo.muted = false;
+        muteButton.innerText = '🔊';
+      } else {
+        bgVideo.muted = true;
+        muteButton.innerText = '🔇';
+      }
+    });
+
+    bgVideo.addEventListener("ended", () => {
+      bgVideo.pause();
+      btnWrapper.classList.add("show");
+    });
+  </script>
+
+</body>
+</html>
